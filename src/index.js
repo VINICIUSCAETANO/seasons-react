@@ -1,33 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CommentDetail from './CommentDetail';
-import AprovalCard from "./ApprovalCard";
-import faker from '@faker-js/faker';
 
-const App = () => {
-    return (
-        <div className="ui container comments">
-            <AprovalCard>Você tem certeza?</AprovalCard>
-            <AprovalCard>
-                <CommentDetail
-                    author="Sam"
-                    date={faker.date.month()}
-                    avatar={faker.image.avatar()} />
-            </AprovalCard>
-            <AprovalCard>
-                <CommentDetail
-                    author="Jane"
-                    date={faker.date.month()}
-                    avatar={faker.image.avatar()} />
-            </AprovalCard>
-            <AprovalCard>
-                <CommentDetail
-                    author="Alex"
-                    date={faker.date.month()}
-                    avatar={faker.image.avatar()} />
-            </AprovalCard>
-        </div>
-    );
-};
+class App extends React.Component {
+    constructor(props) {
+        super(props);
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+        this.state = {
+            lat: null
+        };
+
+        window.navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    lat: position.coords.latitude
+                });
+            },
+            (err) => {
+                this.setState({ errorMessage: err.message });
+            }
+        );
+    }
+
+    render() {
+        if (this.state.errorMessage && !this.state.lat) {
+            return <div>Error: {this.state.errorMessage} </div>;
+        }
+
+        if (!this.state.errorMessage && this.state.lat) {
+            return <div>Latitude: {this.state.lat} </div>;
+        }
+
+        return <div>Loading!</div>
+    }
+}
+
+ReactDOM.render(
+    <App />,
+    document.querySelector('#root'))
