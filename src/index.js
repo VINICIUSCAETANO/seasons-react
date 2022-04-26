@@ -6,7 +6,26 @@ import faker from '@faker-js/faker';
 
 const App = () => {
     return (
-        <div>
+        <div className="ui container comments">
+            <AprovalCard>Você tem certeza?</AprovalCard>
+            <AprovalCard>
+                <CommentDetail
+                    author="Sam"
+                    date={faker.date.month()}
+                    avatar={faker.image.avatar()} />
+            </AprovalCard>
+            <AprovalCard>
+                <CommentDetail
+                    author="Jane"
+                    date={faker.date.month()}
+                    avatar={faker.image.avatar()} />
+            </AprovalCard>
+            <AprovalCard>
+                <CommentDetail
+                    author="Alex"
+                    date={faker.date.month()}
+                    avatar={faker.image.avatar()} />
+            </AprovalCard>
         </div>
     );
 };
