@@ -25,15 +25,17 @@ class App extends React.Component {
 
         return <Spinner message="Please accept location" />;
     }
+
+    render() {
+        return (
+            <div className="border red">
+                {this.renderContent()}
+            </div>
+        )
+    }
 }
 
-render() {
-    return (
-        <div className="border red">
-            {this.renderContent()}
-        </div>
-    )
-}
+
 
 ReactDOM.render(
     <App />,
